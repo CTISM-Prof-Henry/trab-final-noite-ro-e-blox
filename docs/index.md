@@ -1,4 +1,4 @@
-# Welcome to MkDocs
+# Tutorial Agendamento de Salas
 
 For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
@@ -9,9 +9,10 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 * `mkdocs build` - Build the documentation site.
 * `mkdocs -h` - Print help message and exit.
 
-## Project layout
+## Como usar o sistema
 
     mkdocs.yml    # The configuration file.
     docs/
         index.md  # The documentation homepage.
         ...       # Other markdown pages, images and other files.
+

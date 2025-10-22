@@ -1,6 +1,6 @@
 # Tutorial Agendamento de Salas
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Siga o tutorial em: https://ctism-prof-henry.github.io/trab-final-noite-ro-e-blox/
 
 ## Commands
 
@@ -15,4 +15,5 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
     docs/
         index.md  # The documentation homepage.
         ...       # Other markdown pages, images and other files.
+
 

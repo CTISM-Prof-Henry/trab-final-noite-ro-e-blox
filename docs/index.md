@@ -57,14 +57,15 @@ O sistema foi desenvolvido para ser simples e intuitivo. Aqui está um resumo da
    - Insira as informações solicitadas (nome da sala, capacidade, etc.).
    - Clique em **"Cadastrar"** para salvar a nova sala no sistema.
 
-2. **Agendar uma Sala**:
+2. **Agendar uma sala**:
    - Você pode acessar a página de agendamentos de duas maneiras:
    - Na tela **"Início"**, selecione **"+ Novo Agendamento"**, ou...
    - Vá até a página **"Agendamentos"**, clique em **"Novo agendamento"**.
    - Selecione o horário, sala/laboratório, período e digite o responsável para o qual deseja fazer a reserva.
    - Clique em **"Confirmar agendamento"** para confirmar a reserva da sala.
 
-3. **Visualizar Agendamentos**:
+3. **Visualizar agendamentos**:
    - Acesse a seção de visualização de agendamentos para ver as salas já reservadas.
    - O sistema permite visualizar os agendamentos em formato de lista ou calendário, facilitando a consulta.
    - Para visualizar em formato de calendário, basta ir até a página **"Calendário"**.
+

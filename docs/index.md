@@ -23,9 +23,7 @@ O sistema foi desenvolvido para ser simples e intuitivo. Aqui está um resumo da
 
 - **Visualização de agendamentos**: O sistema exibe todos os agendamentos realizados em um formato claro, com a opção de ver um calendário ou lista com todos os compromissos.
 
-## Como utilizar o sistema
-
-### Passo a passo para rodar o sistema localmente:
+## Passo a passo para rodar o sistema localmente
 
 1. **Instalar o Visual Studio Code (VS Code)**:
    Se você ainda não possui o VS Code instalado, faça o download no site oficial:  
@@ -68,4 +66,5 @@ O sistema foi desenvolvido para ser simples e intuitivo. Aqui está um resumo da
    - Acesse a seção de visualização de agendamentos para ver as salas já reservadas.
    - O sistema permite visualizar os agendamentos em formato de lista ou calendário, facilitando a consulta.
    - Para visualizar em formato de calendário, basta ir até a página **"Calendário"**.
+
 

@@ -1,16 +1,12 @@
-// agendamento-definitions.js - VERSÃO ATUALIZADA
-
-// A classe Sala agora terá mais detalhes, conforme seu design
 export class Sala {
     constructor(id_sala, nome, tipo, capacidade) {
         this.id_sala = id_sala;
         this.nome = nome;
-        this.tipo = tipo; // "Laboratório", "Sala de Aula", etc.
+        this.tipo = tipo;
         this.capacidade = capacidade;
     }
 }
 
-// As classes Responsavel e Agendamento continuam iguais...
 export class Responsavel {
     constructor(id_responsavel, nome) {
         this.id_responsavel = id_responsavel;
@@ -43,15 +39,14 @@ export class SistemaAgendamento {
         this.ultimo_id_responsavel = 0;
     }
 
-    // MÉTODO ATUALIZADO para aceitar mais detalhes
     adicionarSala(nome, tipo, capacidade) {
         if (!nome || !tipo || !capacidade) {
-            throw new Error("Nome, tipo e capacidade são obrigatórios.");
+            throw new Error("Todos os campos são obrigatórios.");
         }
         this.ultimo_id_sala++;
         const novaSala = new Sala(this.ultimo_id_sala, nome, tipo, capacidade);
         this.salas.push(novaSala);
-        this.salvarNoLocalStorage(); // Salva os dados após adicionar!
+        this.salvarNoLocalStorage();
         return novaSala;
     }
 
@@ -75,11 +70,10 @@ export class SistemaAgendamento {
                 const sobreposicaoDeHorario = inicioAgendamento < fimExistente && fimAgendamento > inicioExistente;
 
                 if (!sobreposicaoDeHorario) {
-                    continue; // Se não há conflito de horário, pode pular para o próximo agendamento
+                    continue;
                 }
 
                 // 3. Verifica se os PERÍODOS (datas) se sobrepõem
-                // Precisamos garantir que as datas sejam tratadas sem a parte do horário para evitar bugs
                 const inicioNovoSemHora = new Date(data_inicio.getFullYear(), data_inicio.getMonth(), data_inicio.getDate());
                 const fimNovoSemHora = new Date(data_fim.getFullYear(), data_fim.getMonth(), data_fim.getDate());
                 const inicioExistenteSemHora = new Date(agendamentoExistente.data_inicio.getFullYear(), agendamentoExistente.data_inicio.getMonth(), agendamentoExistente.data_inicio.getDate());
@@ -88,25 +82,20 @@ export class SistemaAgendamento {
                 const sobreposicaoDeData = inicioNovoSemHora <= fimExistenteSemHora && fimNovoSemHora >= inicioExistenteSemHora;
 
                 if (!sobreposicaoDeData) {
-                    continue; // Se não há conflito de datas, pode pular
+                    continue;
                 }
 
-                // 4. Se chegou até aqui, os horários e as datas se cruzam.
-                //    Agora, a verificação final: os DIAS DA SEMANA conflitam?
+                // 4. Verificação final: os DIAS DA SEMANA conflitam?
                 const novoEhTodosOsDias = (dia_semana === -1);
                 const existenteEhTodosOsDias = (agendamentoExistente.dia_semana === -1);
                 const mesmoDiaDaSemana = (dia_semana === agendamentoExistente.dia_semana);
 
                 if (novoEhTodosOsDias || existenteEhTodosOsDias || mesmoDiaDaSemana) {
-                    // Se o novo é para todos os dias, OU o existente é para todos os dias,
-                    // OU ambos são para o mesmo dia específico (ex: duas terças-feiras),
-                    // ENTÃO HÁ CONFLITO!
                     throw new Error('Esta sala já está reservada em um período, horário e dia da semana conflitante!');
                 }
             }
         }
 
-        // Se passou por todas as verificações, pode adicionar
         this.ultimo_id_agendamento++;
         const novoAgendamento = new Agendamento(
             this.ultimo_id_agendamento,
@@ -116,20 +105,21 @@ export class SistemaAgendamento {
             data_fim,
             hora_inicio,
             hora_fim,
-            dia_semana // <- Passando o novo dado
+            dia_semana
         );
 
         this.agendamentos.push(novoAgendamento);
-        this.salvarNoLocalStorage(); // Não esquecer de salvar!
+        this.salvarNoLocalStorage();
         return novoAgendamento;
     }
 
-    getSala(id_sala) { /* ...código igual ao anterior... */ }
-
-    // ===== NOVOS MÉTODOS PARA PERSISTÊNCIA =====
+    getSala(id_sala) {
+        const sala = this.salas.find(s => s.id_sala === id_sala);
+        if (!sala) throw new Error('Sala não encontrada!');
+        return sala;
+    }
 
     salvarNoLocalStorage() {
-        // Converte todo o objeto 'SistemaAgendamento' para uma string JSON e salva
         localStorage.setItem('sistemaAgendamento', JSON.stringify(this));
     }
 
@@ -137,13 +127,20 @@ export class SistemaAgendamento {
         const dados = localStorage.getItem('sistemaAgendamento');
         if (dados) {
             const sistemaSalvo = JSON.parse(dados);
-            // Copia os dados salvos para o objeto atual
+
             this.salas = sistemaSalvo.salas;
             this.agendamentos = sistemaSalvo.agendamentos;
             this.responsaveis = sistemaSalvo.responsaveis;
             this.ultimo_id_sala = sistemaSalvo.ultimo_id_sala;
             this.ultimo_id_agendamento = sistemaSalvo.ultimo_id_agendamento;
             this.ultimo_id_responsavel = sistemaSalvo.ultimo_id_responsavel;
+
+            // Converter strings de data de volta para objetos Date
+            this.agendamentos = this.agendamentos.map(ag => {
+                ag.data_inicio = new Date(ag.data_inicio);
+                ag.data_fim = new Date(ag.data_fim);
+                return ag;
+            });
         }
     }
 }

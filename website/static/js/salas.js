@@ -2,22 +2,22 @@ import { SistemaAgendamento } from './agendamento-definitions.js';
 
 const divVisualizacao = document.getElementById('div-visualizacao-salas');
 const divCadastro = document.getElementById('div-cadastro-sala');
-const gridSalas = document.getElementById('grid-salas'); 
+const gridSalas = document.getElementById('grid-salas');
+const formCadastro = document.getElementById('form-cadastro-sala');
 
 function atualizarListaSalas() {
     gridSalas.innerHTML = '';
 
     if (window.sistema.salas.length === 0) {
-        gridSalas.innerHTML = `<div class="col-12"><p class="text-center text-muted">Nenhuma sala cadastrada. Clique em "+ Adicionar sala" para começar.</p></div>`;
+        gridSalas.innerHTML = `<div class="col-12"><p class="text-center text-muted">Nenhuma sala cadastrada.</p></div>`;
         return;
     }
 
     window.sistema.salas.forEach(sala => {
         const col = document.createElement('div');
         col.className = 'col-md-6 col-lg-4 mb-4';
-
         col.innerHTML = `
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">${sala.nome}</h5>
                     <div class="mb-2">
@@ -27,7 +27,6 @@ function atualizarListaSalas() {
                 </div>
             </div>
         `;
-        
         gridSalas.appendChild(col);
     });
 }
@@ -35,12 +34,13 @@ function atualizarListaSalas() {
 function mostrarFormularioCadastro() {
     divVisualizacao.classList.add('d-none');
     divCadastro.classList.remove('d-none');
+    document.getElementById('div-mensagem-cadastro').innerHTML = '';
 }
 
 function mostrarVisualizacao() {
     divCadastro.classList.add('d-none');
     divVisualizacao.classList.remove('d-none');
-    document.getElementById('form-cadastro-sala').reset();
+    formCadastro.reset();
 }
 
 function callbackCadastrarSala() {
@@ -51,10 +51,8 @@ function callbackCadastrarSala() {
 
     try {
         window.sistema.adicionarSala(nome, tipo, capacidade);
-        
         atualizarListaSalas();
         mostrarVisualizacao();
-
     } catch (e) {
         divMensagem.innerHTML = `<div class="alert alert-danger">${e.message}</div>`;
     }
@@ -63,7 +61,6 @@ function callbackCadastrarSala() {
 function main() {
     window.sistema = new SistemaAgendamento();
     window.sistema.carregarDoLocalStorage();
-
     atualizarListaSalas();
 
     document.getElementById('btn-adicionar-nova').addEventListener('click', mostrarFormularioCadastro);

@@ -15,8 +15,8 @@
 
     <!-- Navbar Superior -->
     <nav class="navbar navbar-expand-lg bg-white border-bottom p-3">
-        <div class="container"> <a class="navbar-brand" href="#"> <img
-                    src="/docs/img/logo.png" alt="Logo UFSM" width="160"> </a>
+        <div class="container"> <a class="navbar-brand" href="#"> <img src="/docs/img/logo.png" alt="Logo UFSM"
+                    width="160"> </a>
             <div class="d-flex">
                 <ul class="navbar-nav fw-semibold">
                     <li class="nav-item"> <a class="nav-link me-3" href="#">Iniciar sessão</a> </li>
@@ -86,11 +86,11 @@
                     </div>
                     <div class="col-md-3">
                         <label class="form-label">Horário inicial</label>
-                        <input type="time" class="form-control" id="input-hora-inicio">
+                        <input type="time" class="form-control" id="input-hora-inicio" required>
                     </div>
                     <div class="col-md-3">
                         <label class="form-label">Horário final</label>
-                        <input type="time" class="form-control" id="input-hora-fim">
+                        <input type="time" class="form-control" id="input-hora-fim" required>
                     </div>
                 </div>
 
@@ -104,14 +104,25 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script type="module" src="/trab-final-noite-ro-e-blox-main/website/static/js/novo-agendamento.js"></script>
-    <script> $(function () { $('#daterange').daterangepicker({ opens: 'right', locale: { format: 'DD/MM/YYYY', applyLabel: "Aplicar", cancelLabel: "Cancelar", fromLabel: "De", toLabel: "Até", customRangeLabel: "Personalizado", daysOfWeek: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"], monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"], firstDay: 1 } }); }); </script>
+    <script type="module" src="/website/static/js/novo-agendamento.js"></script>
+    <script>
+        $(function () {
+            $('#daterange').daterangepicker({
+                opens: 'right',
+                locale: {
+                    format: 'DD/MM/YYYY', applyLabel: "Aplicar", cancelLabel: "Cancelar",
+                    fromLabel: "De", toLabel: "Até", customRangeLabel: "Personalizado",
+                    daysOfWeek: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+                    monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+                    firstDay: 1 
+                    } 
+            }); 
+        });
+    </script>
 </body>
 
 </html>

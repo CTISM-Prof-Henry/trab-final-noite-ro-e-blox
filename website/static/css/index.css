@@ -36,3 +36,24 @@
 .btn-primary:hover {
   background-color: #2563a8;
 }
+
+.agendamento-list-container,
+#grid-salas {
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.fc-event.evento-lab {
+  --fc-event-bg-color: #d946ef;
+  --fc-event-border-color: #c026d3;
+}
+
+.fc-event.evento-sala {
+  --fc-event-bg-color: #0d6efd;
+  --fc-event-border-color: #0a58ca;
+}
+
+.fc-event.evento-outro {
+  --fc-event-bg-color: #198754;
+  --fc-event-border-color: #146c43;
+}

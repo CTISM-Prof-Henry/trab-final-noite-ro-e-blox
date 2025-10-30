@@ -19,14 +19,13 @@ export class Agendamento {
         this.id_agendamento = id_agendamento;
         this.id_sala = id_sala;
         this.nome_responsavel = nome_responsavel;
-        this.data_inicio = data_inicio;
-        this.data_fim = data_fim;
+        this.data_inicio = new Date(data_inicio);
+        this.data_fim = new Date(data_fim);
         this.hora_inicio = hora_inicio;
         this.hora_fim = hora_fim;
         this.dia_semana = dia_semana;
     }
 }
-
 
 export class SistemaAgendamento {
     constructor() {
@@ -53,7 +52,7 @@ export class SistemaAgendamento {
     adicionarAgendamento(id_sala, nome_responsavel, data_inicio, data_fim, hora_inicio, hora_fim, dia_semana) {
         // Validação básica de campos
         if (!id_sala || !nome_responsavel || !data_inicio || !data_fim || !hora_inicio || !hora_fim) {
-            throw new Error('Por favor, preencha todos os campos obrigatórios!');
+            throw new Error('Por favor, preencha todos os campos obrigatórios.');
         }
 
         const inicioAgendamento = parseInt(hora_inicio.replace(':', ''));
@@ -69,9 +68,7 @@ export class SistemaAgendamento {
                 const fimExistente = parseInt(agendamentoExistente.hora_fim.replace(':', ''));
                 const sobreposicaoDeHorario = inicioAgendamento < fimExistente && fimAgendamento > inicioExistente;
 
-                if (!sobreposicaoDeHorario) {
-                    continue;
-                }
+                if (!sobreposicaoDeHorario) continue;
 
                 // 3. Verifica se os PERÍODOS (datas) se sobrepõem
                 const inicioNovoSemHora = new Date(data_inicio.getFullYear(), data_inicio.getMonth(), data_inicio.getDate());
@@ -81,11 +78,9 @@ export class SistemaAgendamento {
 
                 const sobreposicaoDeData = inicioNovoSemHora <= fimExistenteSemHora && fimNovoSemHora >= inicioExistenteSemHora;
 
-                if (!sobreposicaoDeData) {
-                    continue;
-                }
+                if (!sobreposicaoDeData) continue;
 
-                // 4. Verificação final: os DIAS DA SEMANA conflitam?
+                // 4. Verificação final: os dias da semana conflitam?
                 const novoEhTodosOsDias = (dia_semana === -1);
                 const existenteEhTodosOsDias = (agendamentoExistente.dia_semana === -1);
                 const mesmoDiaDaSemana = (dia_semana === agendamentoExistente.dia_semana);
@@ -98,14 +93,8 @@ export class SistemaAgendamento {
 
         this.ultimo_id_agendamento++;
         const novoAgendamento = new Agendamento(
-            this.ultimo_id_agendamento,
-            id_sala,
-            nome_responsavel,
-            data_inicio,
-            data_fim,
-            hora_inicio,
-            hora_fim,
-            dia_semana
+            this.ultimo_id_agendamento, id_sala, nome_responsavel,
+            data_inicio, data_fim, hora_inicio, hora_fim, dia_semana
         );
 
         this.agendamentos.push(novoAgendamento);
@@ -115,7 +104,7 @@ export class SistemaAgendamento {
 
     getSala(id_sala) {
         const sala = this.salas.find(s => s.id_sala === id_sala);
-        if (!sala) throw new Error('Sala não encontrada!');
+        if (!sala) throw new Error('Sala não encontrada.');
         return sala;
     }
 
@@ -129,18 +118,15 @@ export class SistemaAgendamento {
             const sistemaSalvo = JSON.parse(dados);
 
             this.salas = sistemaSalvo.salas;
-            this.agendamentos = sistemaSalvo.agendamentos;
+            
+            this.agendamentos = sistemaSalvo.agendamentos.map(ag => new Agendamento(
+                ag.id_agendamento, ag.id_sala, ag.nome_responsavel,
+                ag.data_inicio, ag.data_fim, ag.hora_inicio, ag.hora_fim, ag.dia_semana
+            ));
             this.responsaveis = sistemaSalvo.responsaveis;
             this.ultimo_id_sala = sistemaSalvo.ultimo_id_sala;
             this.ultimo_id_agendamento = sistemaSalvo.ultimo_id_agendamento;
             this.ultimo_id_responsavel = sistemaSalvo.ultimo_id_responsavel;
-
-            // Converter strings de data de volta para objetos Date
-            this.agendamentos = this.agendamentos.map(ag => {
-                ag.data_inicio = new Date(ag.data_inicio);
-                ag.data_fim = new Date(ag.data_fim);
-                return ag;
-            });
         }
     }
 }

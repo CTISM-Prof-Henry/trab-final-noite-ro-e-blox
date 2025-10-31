@@ -30,16 +30,8 @@ function carregarListaAgendamentos() {
     // Ordena por data de início (mais recentes primeiro)
     agendamentos.sort((a, b) => b.data_inicio - a.data_inicio);
 
-    agendamentos.forEach((agendamento, index) => {
+    agendamentos.forEach((agendamento) => {
         let salaNome = 'Sala não encontrada';
-        try {
-            // Busca o nome da sala usando o ID
-            const sala = window.sistema.getSala(agendamento.id_sala);
-            salaNome = sala.nome;
-        } catch (e) {
-            console.warn(`Sala com ID ${agendamento.id_sala} não foi encontrada.`);
-        }
-
         const diaFormatado = formatarDiaSemana(agendamento.dia_semana);
 
         listaContainer.innerHTML += `

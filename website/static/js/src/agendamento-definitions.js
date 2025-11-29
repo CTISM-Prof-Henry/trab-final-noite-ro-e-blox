@@ -54,6 +54,30 @@ export class SistemaAgendamento {
             throw new Error('Por favor, preencha todos os campos obrigatórios.');
         }
 
+        if (dia_semana !== -1) { // Se NÃO for "Todos os dias"
+            let diaEncontrado = false;
+            
+            // Criamos uma cópia da data para não alterar a original durante o loop
+            let dataAtual = new Date(data_inicio);
+            // Garantimos que a data final considere o dia inteiro para comparação
+            let dataFinalCheck = new Date(data_fim);
+
+            while (dataAtual <= dataFinalCheck) {
+                if (dataAtual.getDay() === dia_semana) {
+                    diaEncontrado = true;
+                    break; // O dia existe no intervalo.
+                }
+                // Avança para o próximo dia
+                dataAtual.setDate(dataAtual.getDate() + 1);
+            }
+
+            if (!diaEncontrado) {
+                // Mapeia o número do dia para o nome
+                const nomesDias = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+                throw new Error(`O período selecionado não contém nenhuma ${nomesDias[dia_semana]}.`);
+            }
+        }
+
         const inicioAgendamento = parseInt(hora_inicio.replace(':', ''));
         const fimAgendamento = parseInt(hora_fim.replace(':', ''));
 

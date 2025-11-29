@@ -52,6 +52,7 @@ function carregarListaAgendamentos() {
             <div class="card-body">
                 <h5 class="card-title">${salaNome}</h6>
                 <p class="mb-2">Prof. ${agendamento.nome_responsavel}</p>
+                <p class="card-text text-muted mb-2"> ${agendamento.data_inicio.toLocaleDateString()} - ${agendamento.data_fim.toLocaleDateString()}</p>
                 <p class="card-text text-muted mb-0">${diaFormatado} • ${agendamento.hora_inicio} às ${agendamento.hora_fim}</p>
             </div>
         `;

@@ -63,14 +63,16 @@ function main() {
     if (dadosString) {
         window.sistema.carregarDados(JSON.parse(dadosString));
     }
-    
+
     const eventos = processarAgendamentosParaCalendario(window.sistema);
 
     const calendarEl = document.getElementById('calendar');
+
     const calendar = new FullCalendar.Calendar(calendarEl, {
 
-        plugins: ['bootstrap5', 'interaction', 'dayGrid', 'timeGrid'],
         themeSystem: 'bootstrap5',
+
+        allDaySlot: false,
 
         headerToolbar: {
             left: 'prev,next today',

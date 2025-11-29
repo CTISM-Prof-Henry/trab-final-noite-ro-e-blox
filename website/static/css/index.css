@@ -57,3 +57,38 @@
   --fc-event-bg-color: #198754;
   --fc-event-border-color: #146c43;
 }
+
+.fc-event-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.fc .fc-button-primary {
+    background-color: #61A6FA;
+    border: none;
+}
+
+.fc .fc-button-primary:hover {
+    background-color: #307AD4;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.fc .fc-toolbar-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.fc .fc-button-primary:disabled {
+    background-color: #62748b;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active, .fc .fc-button-primary:not(:disabled):active {
+    background-color: #307AD4;
+    border-color: var(--fc-button-active-border-color);
+    color: var(--fc-button-text-color);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

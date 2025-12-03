@@ -74,7 +74,7 @@ export class SistemaAgendamento {
             if (!diaEncontrado) {
                 // Mapeia o número do dia para o nome
                 const nomesDias = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
-                throw new Error(`O período selecionado não contém nenhuma ${nomesDias[dia_semana]}.`);
+                throw new Error(`O período selecionado não contém nenhum(a) ${nomesDias[dia_semana]}.`);
             }
         }
 
